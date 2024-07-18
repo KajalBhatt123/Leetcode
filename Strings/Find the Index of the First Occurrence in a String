@@ -1,0 +1,82 @@
+<--------Leetcode 28-------->
+
+Approach 1:
+class Solution {
+public:
+    int strStr(string haystack, string needle) {
+        int m = haystack.length();
+        int n = needle.length();
+        
+        for(int i = 0; i <= m-n; i++) {
+            
+            for(int j = 0; j < n; j++) { 
+                
+                if(haystack[i+j] != needle[j])
+                    break;
+                
+                if(j == n-1)
+                    return i;
+                
+            }
+            
+        }
+        
+        return -1;
+    }
+};
+
+Time Complexity: O(n*m)
+Space Complexity: O(1)
+........................................................................................................................................................................
+Approach 2:
+(Using KMP algo) -
+
+class Solution {
+public:
+    void find_lps(vector<int>&lps, string needle){
+        lps[0]=0;
+        int len=0,i=1;
+        while(i<needle.size()){
+            if(needle[i]==needle[len]){
+                len++;
+                lps[i]=len;
+                i++;
+                
+            }
+            else{
+                if(len!=0){
+                    len=lps[len-1];
+                }
+                else{
+                    lps[i]=0;
+                    i++;
+                }
+            }
+        }
+    }
+    int strStr(string haystack, string needle) {
+        vector<int>lps(needle.size());
+        find_lps(lps,needle);
+        int j=0,i=0;
+        while(i<haystack.size()){
+            if(haystack[i]==needle[j]){
+                j++;
+                i++;
+            }
+            else{
+                if(j==0) i++;
+                else
+                j=lps[j-1];
+            }
+            if(j==needle.size()){
+                return (i-j);
+            }
+        }
+        return -1;
+
+    }
+};
+
+
+Time Complexity: O(n+m)
+Space Complexity: O(m)
