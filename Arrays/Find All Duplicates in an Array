@@ -1,0 +1,22 @@
+<--------Leetcode 442-------->
+
+class Solution {
+public:
+    vector<int> findDuplicates(vector<int>& nums) {
+        vector<int>arr;
+        int i,j;
+        for (i = 0; i < nums.size(); ++i) {
+            j = abs(nums[i]) - 1;
+            if (nums[j] > 0) {
+                nums[j] = -nums[j];
+            }
+            else {
+                arr.push_back(j + 1);
+            }
+        }
+        return arr;
+    }
+};
+
+Time Complexity: O(n)
+Space Complexity: O(1)
