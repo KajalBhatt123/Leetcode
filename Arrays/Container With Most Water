@@ -1,0 +1,22 @@
+<--------Leetcode 11-------->
+
+class Solution {
+public:
+    int maxArea(vector<int>& height) {
+        int i=0,j=height.size()-1,ans=0;
+        while(i<j){
+            int p=min(height[i],height[j])*(j-i);
+            if(height[i]<height[j]){
+                i++;
+            }
+            else{
+                j--;
+            }
+            ans=max(ans,p);
+        }
+        return ans;
+    }
+};
+
+Time Complexity: O(n)
+Space Complexity: O(1)
