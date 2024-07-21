@@ -1,0 +1,26 @@
+<--------Leetcode 1423-------->
+
+class Solution {
+public:
+    int maxScore(vector<int>& cardPoints, int k) {
+        int left=0,right=0,i=0,n=cardPoints.size(),j=n-1,ans=0;
+        while(k--){
+            left+=cardPoints[i];
+            i++;
+        }
+        if(k==n) return left;
+        i=i-1;
+        while(i>=0){
+            ans=max(ans,(left+right));
+            left-=cardPoints[i];
+            right+=cardPoints[j];
+            i--;
+            j--;
+            ans=max(ans,(left+right));
+        }
+        return ans;
+    }
+};
+
+Time Complexity: O(k)
+Space Complexity: O(1)
