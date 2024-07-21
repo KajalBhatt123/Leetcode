@@ -1,0 +1,35 @@
+<--------Leetcode 54-------->
+
+class Solution {
+public:
+    vector<int> spiralOrder(vector<vector<int>>& matrix) {
+        int n=matrix.size(),m=matrix[0].size(),top=0,down=n-1,left=0,right=m-1,count=0;
+        int total=m*n;
+        vector<int> v;
+        while(count<total){
+        for(int i=left;count<total && i<=right;i++){
+            v.push_back(matrix[left][i]);count++;
+        }
+        top++;
+        for(int i=top;count<total && i<=down;i++){
+            v.push_back(matrix[i][right]);
+            count++;
+        }
+        right--;
+        for(int i=right;count<total && i>=left;i--){
+            v.push_back(matrix[down][i]);
+            count++;
+        }
+        down--;
+        for(int i=down;count<total && i>=top;i--){
+            v.push_back(matrix[i][left]);
+            count++;
+        }
+        left++;
+        }
+        return v;
+    }
+};
+
+Time Complexity: O(n*m)
+Space Complexity: O(1)
