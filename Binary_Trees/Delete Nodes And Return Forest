@@ -1,0 +1,33 @@
+<--------Leetcode 1110-------->
+
+class Solution {
+public:
+    TreeNode* func(TreeNode* root, unordered_set<int>& sett, vector<TreeNode*>& ans) {
+        if (root == NULL) return root;
+        root->left = func(root->left, sett, ans);
+        root->right = func(root->right, sett, ans);
+        
+        if (sett.find(root->val) != sett.end()) {
+            if (root->left) ans.push_back(root->left);
+            if (root->right) ans.push_back(root->right);
+            return NULL;
+        }
+        return root;
+    }
+
+    vector<TreeNode*> delNodes(TreeNode* root, vector<int>& to_delete) {
+        vector<TreeNode*> ans;
+        unordered_set<int> sett(to_delete.begin(), to_delete.end());
+        
+        func(root, sett, ans);
+        if(sett.find(root->val)==sett.end()){
+            ans.push_back(root);}
+        
+        
+        return ans;
+    }
+};
+
+
+Time Complexity: O(n)
+Space Complexity: O(n)
