@@ -1,0 +1,54 @@
+<--------Leetcode 199-------->
+
+Approach 1:
+(Using DFS)
+
+class Solution {
+public:
+    void traversal(TreeNode* root, vector<int>&v,int level){
+        if(root==NULL) return ;
+        if(v.size()<level){
+            v.push_back(root->val);
+        }
+        traversal(root->right,v,level+1);
+        traversal(root->left,v,level+1);
+    }
+    vector<int> rightSideView(TreeNode* root) {
+        vector<int>v;
+        traversal(root,v,1);
+        return v;
+    }
+};
+.............................................................................................................................................................................
+
+Approach 2:
+(Using BFS)
+class Solution {
+public:
+    vector<int> rightSideView(TreeNode* root) {
+        if(root==NULL){
+            return {};
+        }
+        vector<int> v;
+        queue<TreeNode*>q;
+        q.push(root);
+        while(!q.empty()){
+            int n=q.size();
+            TreeNode* node=NULL;
+            while(n--){
+                node=q.front();
+                q.pop();
+                if(node->left!=NULL)
+                q.push(node->left);
+                if(node->right!=NULL)
+                q.push(node->right);
+            }
+            v.push_back(node->val);
+        }
+        return v;
+    }
+};
+.............................................................................................................................................................................
+
+Time Complexity: O(n)
+Space Complexity: O(n) 
