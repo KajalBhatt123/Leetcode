@@ -1,0 +1,38 @@
+<--------Leetcode 2191-------->
+
+class Solution {
+public:
+    vector<int> sortJumbled(vector<int>& mapping, vector<int>& nums) {
+        int n=nums.size();
+        vector<int> nums2(n);
+        unordered_map<int,int> mp;
+        for(int i=0;i<10;i++){
+            mp[i]=mapping[i];
+        }
+        for(int i=0;i<n;i++){
+            string s=to_string(nums[i]);
+            for(int j=0;j<s.size();j++){
+                int a=s[j]-'0';
+                s[j]=mp[a]+'0';
+            }
+            nums2[i]=stoi(s);
+        }
+        vector<int> indices(n);
+        iota(indices.begin(), indices.end(), 0); 
+        
+        sort(indices.begin(), indices.end(), [&nums2](int a, int b) {
+            return nums2[a] < nums2[b];
+        });
+        vector<int> sorted_nums(n);
+        for (int i = 0; i < n; ++i) {
+            sorted_nums[i] = nums[indices[i]];
+        }
+        
+        return sorted_nums;
+        return nums;
+
+    }
+};
+
+Time Complexity: O(n log n)
+Space Complexity: O(n)
