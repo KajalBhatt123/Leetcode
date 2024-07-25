@@ -1,0 +1,19 @@
+<--------Leetcode 168-------->
+
+class Solution {
+public:
+    string convertToTitle(int columnNumber) {
+        string ans;
+        while(columnNumber>0){
+            columnNumber-=1;
+            int rem=columnNumber%26;
+            columnNumber/=26;
+            ans=(static_cast<char>(rem+64))+ans;
+            
+        }
+        return ans;
+    }
+};
+
+Time Complexity: O(log26(columnNumber))
+Space Complexity: O(1)
