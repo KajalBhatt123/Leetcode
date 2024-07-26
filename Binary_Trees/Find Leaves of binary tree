@@ -1,0 +1,52 @@
+<--------Leetcode-------->
+
+
+#include <iostream>
+#include<unordered_map>
+#include<vector>
+using namespace std;
+struct Treenode{
+    int val;
+    Treenode* left;
+    Treenode* right;
+    Treenode(int x){
+        this->val=x;
+        this->left=NULL;
+        this->right=NULL;
+    }
+    
+};
+int findleaves(Treenode* root,unordered_map<int,vector<int>> &mp){
+    if(root==NULL) return 0;
+    int l=findleaves(root->left,mp);
+    int r=findleaves(root->right,mp);
+    int h=1+max(l,r);
+    mp[h].push_back(root->val);
+    return h;
+    
+}
+int main() {
+    unordered_map<int,vector<int>> mp;
+    Treenode* root=new Treenode(1);
+    root->left=new Treenode(2);
+    root->right=new Treenode(3);
+    root->left->left=new Treenode(4);
+    root->right->right=new Treenode(5);
+    vector<vector<int>> v;
+    findleaves(root,mp);
+    for(auto el:mp){
+        v.push_back(el.second);
+    }
+    for(int i=0;i<v.size();i++){
+        for(int j=0;j<v[i].size();j++){
+            cout<<v[i][j]<<" ";
+        }
+        cout<<endl;
+    }
+
+    return 0;
+}
+.............................................................................................................................................................................
+
+Time Complexity: O(n)
+Space Complexity: O(n) 
