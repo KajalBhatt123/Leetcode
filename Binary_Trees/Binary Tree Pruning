@@ -1,0 +1,50 @@
+<--------Leetcode 814-------->
+
+Approach 1:
+
+class Solution {
+public:
+    bool checkforone(TreeNode* root){
+        if(root==NULL) return false;
+        if(root->val==1)return true;
+        return checkforone(root->left)||checkforone(root->right);
+    }
+    TreeNode* pruneTree(TreeNode* root) {
+        if(root==NULL) return root;
+        if(checkforone(root->left)==false){
+            root->left=NULL;
+        }
+        if(checkforone(root->right)==false){
+            root->right=NULL;
+        }
+        root->left=pruneTree(root->left);
+        root->right=pruneTree(root->right);
+        if(root->left==NULL && root->right==NULL && root->val==0){
+            return NULL;
+        }
+        return root;
+    }
+};
+
+Time Complexity: O(n^2)
+Space Complexity: O(n) 
+.............................................................................................................................................................................
+
+Approach 2:
+
+class Solution {
+public:
+    TreeNode* pruneTree(TreeNode* root) {
+        if(root==NULL) return root;
+        root->left=pruneTree(root->left);
+        root->right=pruneTree(root->right);
+        if(root->left==NULL && root->right==NULL && root->val==0){
+            return NULL;
+        }
+        return root;
+    }
+};
+
+
+Time Complexity: O(n)
+Space Complexity: O(n) 
