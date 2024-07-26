@@ -1,0 +1,15 @@
+<--------Leetcode 104-------->
+
+class Solution {
+public:
+    int maxDepth(TreeNode* root) {
+        if(root==NULL) return 0;
+        int nleft=maxDepth(root->left);
+        int nright=maxDepth(root->right);
+        return 1+max(nleft,nright);
+    }
+};
+.............................................................................................................................................................................
+
+Time Complexity: O(n)
+Space Complexity: O(n) 
