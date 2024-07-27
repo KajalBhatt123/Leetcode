@@ -1,0 +1,30 @@
+<--------Leetcode 1335-------->
+
+class Solution {
+public:
+    int func(int ind,vector<int>& jobDifficulty, int d,int n,vector<vector<int>> &dp){
+        int maxx=jobDifficulty[ind],result=INT_MAX;
+        if(dp[ind][d]!=-1) return dp[ind][d];
+        if(d==1){
+            for(int i=ind+1;i<n;i++){
+                maxx=max(maxx,jobDifficulty[i]);
+            }
+            return dp[ind][1]=maxx;
+        }
+        for(int i=ind;i<=n-d;i++){
+            maxx=max(maxx,jobDifficulty[i]);
+            int ans=maxx+func(i+1,jobDifficulty,d-1,n,dp);
+            result=min(result,ans);
+        }
+        return dp[ind][d]=result;
+    }
+    int minDifficulty(vector<int>& jobDifficulty, int d) {
+        int n=jobDifficulty.size();
+        vector<vector<int>> dp(n+1,vector<int>(d+1,-1));
+        if(n<d) return -1;
+        return func(0,jobDifficulty,d,n,dp);
+    }
+};
+
+Time Complexity: O(n^2.d)
+Space Complexity: O(n.d)
