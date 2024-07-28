@@ -1,0 +1,36 @@
+<--------Leetcode 547-------->
+
+class Solution {
+public:
+    void dfs(unordered_map<int,vector<int>> &mp, int n, int u, vector<bool> &visited){
+        visited[u]=true;
+        for(auto adj:mp[u]){
+            if(!visited[adj]){
+                dfs(mp,n,adj,visited);
+            }
+        }
+    }
+    int findCircleNum(vector<vector<int>>& isConnected) {
+        unordered_map<int,vector<int>>mp;
+        int n=isConnected.size(),count=0;
+        vector<bool> visited(n,false);
+        for(int i=0;i<n;i++){
+            for(int j=0;j<n;j++){
+                if(isConnected[i][j]==1 && i!=j){
+                    mp[i].push_back(j);
+                }
+            }
+        }
+        for(int i=0;i<n;i++){
+            if(!visited[i]){
+                dfs(mp,n,i,visited);
+                count++;
+            }
+        }
+        return count;
+
+    }
+};
+
+Time Complexity: O(n^2)
+Space Complexity: O(n^2)
