@@ -1,0 +1,46 @@
+<--------Leetcode 1239-------->
+
+class Solution {
+public:
+    bool hasduplicate(string &s1, string &s2){
+        vector<int>alpha(26,-1);
+        for(int i=0;i<s1.size();i++){
+            if(alpha[s1[i]-97]!=-1){
+                return true;
+            }
+            else
+            alpha[s1[i]-97]=1;
+        }
+        for(int i=0;i<s2.size();i++){
+            if(alpha[s2[i]-97]!=-1){
+                return true;
+            }
+            else{
+                alpha[s2[i]-97]=1;
+            }
+        }
+        return false;
+    }
+    
+    int func(vector<string>& arr, int ind, string str,unordered_map<string,int> &dp){
+        if(ind>=arr.size()) return str.size();
+        if(dp.find(str)!=dp.end()){
+            return dp[str];
+        }
+        int take=0;
+        if(!hasduplicate(str,arr[ind])){
+            take=func(arr,ind+1,str+arr[ind],dp);
+        }
+        int skip=func(arr,ind+1,str,dp);
+        return dp[str]=max(take,skip);
+
+    }
+    int maxLength(vector<string>& arr) {
+        string str="";int maxx=0;
+        unordered_map<string,int> dp;
+        return func(arr,0,str,dp);
+    }
+};
+
+Time Complexity: O(2^n*l)
+Space Complexity: O(2^n*l)
