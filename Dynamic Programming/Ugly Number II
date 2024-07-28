@@ -1,0 +1,26 @@
+<--------Leetcode 264-------->
+
+class Solution {
+public:
+    int nthUglyNumber(int n) {
+        vector<int>v(n+1);
+        v[1]=1;
+        int i3=1,i2=1,i5=1,n3,n2,n5,i=2,minn=INT_MAX;
+        while(i<=n){
+            n2=v[i2]*2;
+            n3=v[i3]*3;
+            n5=v[i5]*5;
+            minn=min({n2,n3,n5});
+            v[i]=minn;
+            if(minn==n2) i2++;
+            if(minn==n3) i3++;
+            if(minn==n5) i5++;
+            i++;
+        }
+        return v[n];
+
+    }
+};
+
+Time Complexity: O(n)
+Space Complexity: O(n)
