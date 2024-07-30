@@ -1,0 +1,49 @@
+<--------https://www.geeksforgeeks.org/problems/detect-cycle-using-dsu/1-------->
+
+class Solution
+{
+    public:
+    int find(int set1,vector<int>&parent){
+        if(set1==parent[set1]) return set1;
+        return parent[set1]=find(parent[set1],parent);
+    }
+    bool unionn(int set1,int set2, vector<int> &parent,vector<int>&rank){
+        int parent1=find(set1,parent);
+        int parent2=find(set2,parent);
+        if(parent1==parent2){
+            return true;
+        }
+        if(rank[parent1]>rank[parent2]){
+            parent[parent2]=parent1;
+        }
+        else if(rank[parent1]<rank[parent2]){
+            parent[parent1]=parent2;
+        }
+        else{
+            parent[parent2]=parent1;
+            rank[parent1]++;
+        }
+        return false;
+    }
+	int detectCycle(int V, vector<int>adj[])
+	{
+	    vector<int>parent(V);
+	    vector<int>rank(V,0);
+	    for(int i=0;i<V;i++){
+	        parent[i]=i;
+	    }
+	    for(int i=0;i<V;i++){
+	        for(auto node:adj[i]){
+	            if(i<node){
+	                if(unionn(i,node,parent,rank)){
+	                    return 1;
+	                }
+	            }
+	        }
+	    }
+	    return 0;
+	}
+};
+
+Time Complexity: O(V+E)
+Space Complexity: O(V+E)
