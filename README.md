@@ -7,7 +7,8 @@ The main goal is to maintain consistency in solving and documenting solutions to
 
 🫠🫠
 
-Motivation
+Motivation:
+
 I created this repository to:
 
 📈 Track Progress: Document my daily progress in solving LeetCode problems.
