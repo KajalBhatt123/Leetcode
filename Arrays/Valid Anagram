@@ -1,0 +1,25 @@
+<--------Leetcode 242-------->
+
+class Solution {
+public:
+    bool isAnagram(string s, string t) {
+        multiset<int> sett;
+        for(int i=0;i<s.size();i++){
+            sett.insert(s[i]-97);
+        }
+        for(int i=0;i<t.size();i++){
+            auto it = sett.find(t[i]-97);
+            if (it != sett.end()) {
+                sett.erase(it);
+            }
+            else return false;
+        }
+        if(sett.empty())
+        return true;
+        return false;
+    }
+    
+};
+
+Time Complexity: O(n)
+Space Complexity: O(n)
