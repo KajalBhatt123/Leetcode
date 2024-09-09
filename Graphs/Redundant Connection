@@ -1,0 +1,58 @@
+<--------Leetcode 684-------->
+
+class Solution {
+public:
+    int find(int setA, vector<int> &parent){
+        if(setA==parent[setA]) return setA;
+        return parent[setA]=find(parent[setA],parent);
+    }
+    void unionn(vector<int> &rank, int setA,int setB,vector<int> &parent){
+        int a=find(setA,parent);
+        int b=find(setB,parent);
+        if(a==b) return ;
+        if(rank[a]<rank[b]){
+            parent[a]=b;
+        }
+        else if(rank[a]>rank[b]){
+            parent[b]=a;
+        }
+        else{
+            parent[b]=a;
+            rank[a]++;
+        }
+    }
+    vector<int> findRedundantConnection(vector<vector<int>>& edges) {
+        vector<int> ans;
+        // vector<bool> visited(n,false);
+        int n=edges.size();
+        vector<int> parent(n);
+        for(int i=0;i<n;i++){
+            parent[i]=i;
+        }
+        unordered_map<int,vector<int>> mp;
+        for(int i=0;i<n;i++){
+            mp[edges[i][0]-1].push_back(edges[i][1]-1);
+            mp[edges[i][1]-1].push_back(edges[i][0]-1);
+        }
+        vector<int> rank(n,1);
+        for(int k=0;k<edges.size();k++){
+                int i=edges[k][0]-1;
+                int j=edges[k][1]-1;
+                if(i<j){
+                    int a=find(i,parent);
+                    int b=find(j,parent);
+                    if(a==b){
+                        ans.clear();
+                        ans.push_back(i+1);
+                        ans.push_back(j+1);
+                    }
+                    unionn(rank,a,b,parent);
+                }
+            
+        }
+        return ans;
+    }
+};
+
+Time Complexity: O(N)
+Space Complexity: O(N)
