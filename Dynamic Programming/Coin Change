@@ -1,0 +1,40 @@
+<--------Leetcode 322-------->
+
+class Solution {
+public:
+    int func(vector<int>& coins, int amount, long long sum, int i, vector<vector<int>>& dp) {
+        if (sum == amount) {
+            return 0;
+        }
+        if (sum > amount || i >= coins.size()) {
+            return INT_MAX; 
+        }
+        
+        if (dp[i][sum] != -1) {
+            return dp[i][sum]; 
+        }
+        
+        int take = INT_MAX;
+        if (sum + coins[i] <= amount) {
+            int takeCount = func(coins, amount, sum + coins[i], i, dp);
+            if (takeCount != INT_MAX) {
+                take = 1 + takeCount;
+            }
+        }
+        
+        int skip = func(coins, amount, sum, i + 1, dp);
+        
+        return dp[i][sum] = min(take, skip); 
+    }
+    
+    int coinChange(vector<int>& coins, int amount) {
+        vector<vector<int>> dp(coins.size(), vector<int>(amount + 1, -1));
+        int result = func(coins, amount, 0, 0, dp);
+        return result == INT_MAX ? -1 : result; 
+    }
+};
+
+
+Time Complexity: O(n.amount)
+Space Complexity: O(amount)
+.........................................................................................................................................................................................
