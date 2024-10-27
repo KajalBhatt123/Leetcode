@@ -1,0 +1,21 @@
+<--------Leetcode 145-------->
+
+class Solution {
+public:
+    vector<int>a;
+    void POT(TreeNode* root){
+        if(root!=NULL){
+            postorderTraversal(root->left);
+            postorderTraversal(root->right);
+            a.push_back(root->val);
+        }
+    }
+    vector<int> postorderTraversal(TreeNode* root) {
+        POT(root);
+        return a;
+    }
+};
+
+
+Time Complexity: O(n)
+Space Complexity: O(n)
