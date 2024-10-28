@@ -1,0 +1,28 @@
+<--------Leetcode 987-------->
+
+class Solution {
+public:
+    void func(TreeNode* root,int level,int v,map<int,map<int,multiset<int>>> &mp){
+        if(root==NULL) return;
+        mp[v][level].insert(root->val);
+        func(root->left,level+1,v-1,mp);
+        func(root->right,level+1,v+1,mp);
+    }
+    vector<vector<int>> verticalTraversal(TreeNode* root) {
+        map<int,map<int,multiset<int>>> mp;
+        func(root,1,0,mp);
+        vector<vector<int>> ans;
+        for(auto ch:mp){
+            vector<int> temp;
+            for(auto el:ch.second)
+            for (auto vl:el.second) {
+                temp.push_back(vl);
+            }
+            ans.push_back(temp);
+        }
+        return ans;
+    }
+};
+
+Time Complexity: O(n log n)
+Space Complexity: O(n)
