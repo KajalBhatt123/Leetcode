@@ -1,0 +1,20 @@
+<--------Leetcode 124-------->
+
+class Solution {
+public:
+    int func(TreeNode *root,int &maxx){
+        if(root==NULL) return 0;
+        int ls=max(0,func(root->left,maxx));
+        int rs=max(0,func(root->right,maxx));
+        maxx=max(maxx,root->val+ls+rs);
+        return root->val+max(ls,rs);
+    }
+    int maxPathSum(TreeNode* root) {
+        int maxx=root->val;
+        int a=func(root,maxx);
+        return maxx;
+    }
+};
+
+Time Complexity: O(n)
+Space Complexity: O(height)
