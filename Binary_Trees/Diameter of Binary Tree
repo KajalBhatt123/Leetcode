@@ -1,0 +1,20 @@
+<--------Leetcode 543-------->
+
+class Solution {
+public:
+    int maxx=INT_MIN;
+    int func(TreeNode* root) {
+        if(root==NULL) return 0;
+        int lh=func(root->left);
+        int rh=func(root->right);
+        maxx=max(maxx,lh+rh);
+        return 1+max(lh,rh);
+    }
+    int diameterOfBinaryTree(TreeNode* root){
+        int a =func(root);
+        return maxx;
+    }
+};
+
+Time Complexity: O(n)
+Space Complexity: O(height)
