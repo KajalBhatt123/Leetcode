@@ -1,0 +1,24 @@
+<--------https://www.geeksforgeeks.org/problems/depth-first-traversal-for-a-graph/1-------->
+
+class Solution {
+  public:
+    
+    void dfs(vector<vector<int>>& adj, int u, vector<bool> &visited, vector<int> &ans){
+        if(visited[u]==true) return;
+        visited[u]=true;
+        ans.push_back(u);
+        for(int j=0;j<adj[u].size();j++){
+            if(!visited[adj[u][j]]) dfs(adj,adj[u][j],visited,ans);
+        }
+    }
+    vector<int> dfsOfGraph(vector<vector<int>>& adj) {
+        vector<int> ans;
+        vector<bool> visited(adj.size(),false);
+        dfs(adj,0,visited,ans);
+        return ans;
+    }
+};
+
+
+Time Complexity: O(V+E)
+Space Complexity: O(V)
