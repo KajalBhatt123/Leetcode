@@ -1,0 +1,31 @@
+<--------Leetcode 257-------->
+
+class Solution {
+public:
+    void find_paths(TreeNode* root, string route, vector<string> &paths){
+        if(root==NULL) return;
+        if(!root->left && !root->right){
+            route+=to_string(root->val);
+            paths.push_back(route);
+            return;
+        }
+        route=route+to_string(root->val)+"->";
+        find_paths(root->left,route,paths);
+        find_paths(root->right,route,paths);
+        if(route[route.size()-1]=='>')
+        route.erase(route.size() - 3, 3);
+        else{
+            route.erase(route.size() - 1, 1);
+        }
+    }
+    vector<string> binaryTreePaths(TreeNode* root) {
+
+        string route="";
+        vector<string> paths;
+        find_paths(root,route,paths);
+        return paths;
+    }
+};
+
+Time Complexity: O(n.h)
+Space Complexity: O(n.h)
