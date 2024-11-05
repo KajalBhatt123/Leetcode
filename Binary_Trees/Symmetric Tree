@@ -1,0 +1,17 @@
+<--------Leetcode 101-------->
+
+class Solution {
+public:
+    bool func(TreeNode* leftt,TreeNode* rightt){
+        if(!leftt || !rightt) return leftt==rightt;
+        if(leftt->val != rightt->val) return false;
+        return func(leftt->left,rightt->right) && func(leftt->right,rightt->left);
+    }
+    bool isSymmetric(TreeNode* root) {
+        return func(root->left,root->right);
+    }
+};
+
+
+Time Complexity: O(n)
+Space Complexity: O(n)
