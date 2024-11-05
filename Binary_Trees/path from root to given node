@@ -1,0 +1,44 @@
+<--------...................-------->
+
+#include <iostream>
+#include<vector>
+using namespace std;
+struct treenode{
+    int val;
+    treenode* left;
+    treenode* right;
+    treenode(int val){
+        this->val=val;
+        this->left=NULL;
+        this->right=NULL;
+    }
+};
+
+bool find_path(treenode* root, vector<int> &path,int x){
+    if(root==NULL) return false;
+    if(root->val==x){ path.push_back(root->val); return true;}
+    path.push_back(root->val);
+    bool leftt=find_path(root->left,path,x);
+    bool rightt=find_path(root->right,path,x);
+    if(leftt || rightt) return true;
+    path.pop_back();
+    return false;
+}
+
+int main() {
+    treenode* root=new treenode(1);
+    root->left=new treenode(2);
+    root->right=new treenode(3);
+    root->left->right=new treenode(4);
+    root->left->right->right=new treenode(5);
+    
+    vector<int> path;
+    find_path(root,path,4);
+    for(int i=0;i<path.size();i++){
+        cout<<path[i]<<" ";
+    }
+    return 0;
+}
+
+Time Complexity: O(n)
+Space Complexity: O(n)
