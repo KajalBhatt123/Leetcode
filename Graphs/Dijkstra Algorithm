@@ -55,5 +55,5 @@ class Solution {
     }
 };
 
-Time Complexity: O(V+E)
+Time Complexity: O((V+E)logV)
 Space Complexity: O(V)
