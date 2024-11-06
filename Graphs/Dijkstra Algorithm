@@ -1,0 +1,59 @@
+<--------https://www.geeksforgeeks.org/problems/implementing-dijkstra-set-1-adjacency-matrix/1-------->
+
+USING PRIORITY QUEUE:
+class Solution {
+  public:
+    vector<int> dijkstra(vector<vector<pair<int, int>>> &adj, int src) {
+        priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>> pq;
+        pq.push({0,src});
+        vector<int> dst(adj.size(),INT_MAX);
+        dst[src]=0;
+        while(!pq.empty()){
+            int cost=pq.top().first;
+            int node=pq.top().second;
+            pq.pop();
+            for(int i=0;i<adj[node].size();i++){
+                if(adj[node][i].second+cost<dst[adj[node][i].first]){
+                    dst[adj[node][i].first]=adj[node][i].second+cost;
+                    pq.push({dst[adj[node][i].first],adj[node][i].first});
+                }
+            }
+        }
+        return dst;
+    }
+};
+............................................................................................
+
+USING SET:
+class Solution {
+  public:
+    vector<int> dijkstra(vector<vector<pair<int, int>>> &adj, int src) {
+        set<pair<int,int>> sett;
+        sett.insert({0,src});
+        vector<int> dst(adj.size(),INT_MAX);
+        dst[src]=0;
+        while(!sett.empty()){
+            int cost=sett.begin()->first;
+            int node=sett.begin()->second;
+            sett.erase(sett.begin());
+            for(int i=0;i<adj[node].size();i++){
+                int neighbour_node=adj[node][i].first;
+                int neighbour_cost=adj[node][i].second;
+                if(cost+neighbour_cost<dst[neighbour_node]){
+                    if(dst[neighbour_node]!=INT_MAX){
+                        auto it=sett.find({dst[neighbour_node],neighbour_node});
+                        if(it!=sett.end()){
+                            sett.erase(it);
+                        }
+                    }
+                    dst[neighbour_node]=cost+neighbour_cost;
+                    sett.insert({dst[neighbour_node],neighbour_node});
+                }
+            }
+        }
+        return dst;
+    }
+};
+
+Time Complexity: O(V+E)
+Space Complexity: O(V)
