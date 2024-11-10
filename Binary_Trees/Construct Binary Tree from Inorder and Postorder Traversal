@@ -1,0 +1,25 @@
+<--------Leetcode 106-------->
+
+class Solution {
+public:
+    TreeNode* func(vector<int>& inorder, vector<int>& postorder,int i, int j,int& root_i,unordered_map<int,int> &mp){
+        if(i>j || root_i<0) return NULL;
+        TreeNode* node=new TreeNode(postorder[root_i]);
+        int pos=mp[postorder[root_i]];
+        root_i--;
+        node->right=func(inorder,postorder,pos+1,j,root_i,mp);
+        node->left=func(inorder,postorder,i,pos-1,root_i,mp);
+        return node;
+    }
+    TreeNode* buildTree(vector<int>& inorder, vector<int>& postorder) {
+        unordered_map<int,int> mp;
+        for(int i=0;i<postorder.size();i++){
+            mp[inorder[i]]=i;
+        }
+        int root_i=postorder.size()-1;
+        return func(inorder,postorder,0,root_i,root_i,mp);
+    }
+};
+
+Time Complexity: O(n)
+Space Complexity: O(n)
