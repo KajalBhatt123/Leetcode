@@ -1,0 +1,14 @@
+<--------Leetcode 222-------->
+
+class Solution {
+public:
+    int countNodes(TreeNode* root) {
+        if(root==NULL) return 0;
+        int leftt=countNodes(root->left);
+        int rightt=countNodes(root->right);
+        return 1+leftt+rightt;
+    }
+};
+
+Time Complexity: O(n)
+Space Complexity: O(n)
