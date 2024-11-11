@@ -1,0 +1,21 @@
+<--------Leetcode 230-------->
+
+class Solution {
+public:
+    void dfs(TreeNode* root, vector<int> &arr){
+        if(root==NULL) return;
+        dfs(root->left,arr);
+        arr.push_back(root->val);
+        dfs(root->right,arr);
+    }
+    int kthSmallest(TreeNode* root, int k) {
+        vector<int> arr;
+        dfs(root,arr);
+        if(k>arr.size()) return -1;
+        return arr[k-1];
+    }
+};
+
+
+Time Complexity: O(n)
+Space Complexity: O(n)
