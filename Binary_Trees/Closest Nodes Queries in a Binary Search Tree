@@ -1,0 +1,42 @@
+<--------Leetcode 2476-------->
+
+class Solution {
+public:
+    void dfs(TreeNode* root, vector<int>& arr) {
+        if (root == NULL) return;
+        dfs(root->left, arr);
+        arr.push_back(root->val);
+        dfs(root->right, arr);
+    }
+
+    vector<vector<int>> closestNodes(TreeNode* root, vector<int>& queries) {
+        vector<int> arr;
+        vector<vector<int>> ans;
+        dfs(root, arr); 
+
+        for (int q : queries) {
+            int minn = -1, maxx = -1;
+
+            auto it = lower_bound(arr.begin(), arr.end(), q);
+
+            if (it != arr.end() && *it == q) {
+                minn = maxx = *it;
+            } else {
+                if (it != arr.end()) {
+                    maxx = *it;  
+                }
+                if (it != arr.begin()) {
+                    minn = *(it - 1);  
+                }
+            }
+
+            ans.push_back({minn, maxx});
+        }
+
+        return ans;
+    }
+};
+
+
+Time Complexity: O(n + m log n)
+Space Complexity: O(n + m)
