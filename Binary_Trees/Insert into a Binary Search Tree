@@ -1,0 +1,22 @@
+<--------Leetcode 701-------->
+
+
+class Solution {
+public:
+    TreeNode* insertIntoBST(TreeNode* root, int val,TreeNode* parent=NULL) {
+        if(root==NULL) {
+            return new TreeNode(val);
+        }
+        if(val<root->val){
+            root->left=insertIntoBST(root->left,val,root);
+        }
+        else{
+            root->right= insertIntoBST(root->right,val,root);
+        }
+        return root;
+    }
+};
+
+
+Time Complexity: O(n)
+Space Complexity: O(n)
