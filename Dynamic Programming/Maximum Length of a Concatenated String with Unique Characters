@@ -22,23 +22,19 @@ public:
         return false;
     }
     
-    int func(vector<string>& arr, int ind, string str,unordered_map<string,int> &dp){
+    int func(vector<string>& arr, int ind, string str){
         if(ind>=arr.size()) return str.size();
-        if(dp.find(str)!=dp.end()){
-            return dp[str];
-        }
         int take=0;
         if(!hasduplicate(str,arr[ind])){
-            take=func(arr,ind+1,str+arr[ind],dp);
+            take=func(arr,ind+1,str+arr[ind]);
         }
-        int skip=func(arr,ind+1,str,dp);
-        return dp[str]=max(take,skip);
+        int skip=func(arr,ind+1,str);
+        return max(take,skip);
 
     }
     int maxLength(vector<string>& arr) {
         string str="";int maxx=0;
-        unordered_map<string,int> dp;
-        return func(arr,0,str,dp);
+        return func(arr,0,str);
     }
 };
 
