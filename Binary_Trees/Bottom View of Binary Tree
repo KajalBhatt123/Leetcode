@@ -19,7 +19,7 @@ class Solution
             }
         }
     }
-    vector<int> topView(Node *root)
+    vector<int> bottomView(Node *root)
     {
         map<int,int> mp;
         vector<int> ans;
