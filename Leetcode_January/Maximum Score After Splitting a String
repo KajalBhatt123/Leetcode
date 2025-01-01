@@ -1,0 +1,24 @@
+Leetcode 1422
+
+class Solution {
+public:
+    int maxScore(string s) {
+        int count1=0,count0=0,maxx=0;
+        for(int i=0;i<s.size();i++){
+            if(s[i]=='1') count1++;
+        }
+        for(int i=0;i<s.size()-1;i++){
+            if(s[i]=='0'){
+                count0++;
+               
+            }else{
+                count1--;
+            }
+             maxx=max(maxx,count0+count1);
+        }
+        return maxx;
+    }
+};
+
+time complexity: O(n)
+space complexity: O(1)
