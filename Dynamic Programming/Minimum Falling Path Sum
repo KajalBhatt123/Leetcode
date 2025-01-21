@@ -1,0 +1,34 @@
+<--------Leetcode 931-------->
+
+
+class Solution {
+public:
+    int func(vector<vector<int>>& matrix,int i, int j, int n,vector<vector<int>>& dp){
+        if(i==n-1) return matrix[i][j];
+        int minn=INT_MAX;
+        if (dp[i][j]!=1e9){
+            return dp[i][j];
+        }
+        if(i+1<n){
+        if(j>0)
+            minn=min(minn,matrix[i][j]+func(matrix,i+1,j-1,n,dp));
+        if(j<n-1)
+            minn=min(minn,matrix[i][j]+func(matrix,i+1,j+1,n,dp));
+            minn=min(minn,matrix[i][j]+func(matrix,i+1,j,n,dp));
+        }
+        return dp[i][j]=minn;
+    }
+    int minFallingPathSum(vector<vector<int>>& matrix) {
+        int n=matrix.size();
+        vector<vector<int>> dp(n,vector<int>(n,1e9));
+        int minn=INT_MAX;
+        for(int i=0;i<n;i++){
+            minn=min(minn,func(matrix, 0, i,n,dp));
+        }
+        return minn;
+    }
+};
+
+
+Time Complexity: O(n^2)
+Space Complexity: O(n^2)
