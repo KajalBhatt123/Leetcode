@@ -1,0 +1,22 @@
+----------Leetcode 688----------
+class Solution {
+public:
+    double func(int n,int row, int col, int k,vector<vector<vector<double>>> &dp){
+        if(row<0 || row>=n || col<0 || col>=n) return 0;
+        if(k==0) return 1;
+        if(dp[row][col][k]!=-1) return dp[row][col][k];
+        double result=func(n,row-2,col+1,k-1,dp)+func(n,row-2,col-1,k-1,dp)+func(n,row-1,col+2,k-1,dp)+func(n,row-1,col-2,k-1,dp)+func(n,row+1,col-2,k-1,dp)+func(n,row+1,col+2,k-1,dp)+func(n,row+2,col-1,k-1,dp)+func(n,row+2,col+1,k-1,dp);
+        return dp[row][col][k]=result / 8.0;
+
+    }
+    double knightProbability(int n, int k, int row, int column) {
+        vector<vector<vector<double>>> dp(n,vector<vector<double>>(n,vector<double> (k+1,-1)));
+        return func(n,row,column,k,dp);
+    }
+};
+
+
+
+Complexity:
+time: O(8^N)
+space:O(N^3*M)
