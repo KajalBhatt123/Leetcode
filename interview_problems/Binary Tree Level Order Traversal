@@ -1,0 +1,31 @@
+-----------Leetcode 102----------
+
+class Solution {
+public:
+    vector<vector<int>> levelOrder(TreeNode* root) {
+        if(root==NULL) return {};
+        vector<vector<int>> v;
+        queue<TreeNode*> q;
+        q.push(root);
+        vector<int> temp;
+        temp.push_back(root->val);
+        while(!q.empty()){
+            v.push_back(temp);
+            int n=q.size();
+            temp.clear();
+            while(n--){
+                TreeNode* node=q.front();
+                q.pop();
+                if(node->left!=NULL){ q.push(node->left); temp.push_back(node->left->val);}
+                if(node->right!=NULL){ q.push(node->right); temp.push_back(node->right->val);}
+            }
+            
+        }
+        return v;
+        
+    }
+};
+
+Complexity--
+Time:O(n)
+Space: O(n)
