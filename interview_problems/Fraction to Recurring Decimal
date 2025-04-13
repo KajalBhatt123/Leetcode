@@ -1,0 +1,65 @@
+------------Leetcode 166-------------
+
+class Solution {
+public:
+    string fractionToDecimal(int n, int d) {
+        if(n==0) return "0";
+        long long numerator=n;
+        long long denominator=d;
+        
+        if(numerator%denominator==0){ 
+            return to_string(numerator/denominator);
+        }
+        int sign=1;
+        if ((long long)numerator * denominator < 0) sign = -1;
+
+        numerator = abs(numerator);
+        denominator = abs(denominator);
+
+        long long num=numerator/denominator;
+        string ans=to_string(num);
+        ans+=".";
+        vector<pair<long long,long long>> v;
+        long long rem=numerator;bool flag=false;
+        while(true){
+            rem=rem%denominator;
+            rem=rem*10;
+            if(rem==0){
+                for(int i=0;i<v.size();i++){
+
+                    ans+=to_string(v[i].second);
+                }
+                break;
+            }
+            
+            for(int i=0;i<v.size();i++){
+                if(v[i].first==rem){
+                    for(int j=0;j<i;j++){
+                        ans+=to_string(v[j].second);
+                    }
+                    ans+="(";
+                    for(int j=i;j<v.size();j++){
+                        ans+=to_string(v[j].second);
+                    }
+                    ans+=")";
+                    flag=true;
+                    break;
+
+                }
+            }
+            if(flag) break;
+            flag=false;
+            long long q=rem/denominator;
+            v.push_back({rem,q});
+
+        }
+        if(sign==-1){
+            ans='-'+ans;
+        }
+        return ans;
+    }
+};
+
+Complexity--
+Time: O(n)
+Space: O(n)
