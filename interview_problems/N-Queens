@@ -1,0 +1,46 @@
+.............Leetcode 51.............
+
+class Solution {
+public:
+    bool isvalid(int row,vector<string>& arr, int n,int col){
+        for(int i=row;i>=0;i--){
+            if(arr[i][col]=='Q') return false;
+        }
+        int i=row,j=col;
+        while(i>=0 && j<n){
+            if(arr[i][j]=='Q') return false;
+            i--;j++;
+        }
+        i=row,j=col;
+        while(i>=0 && j>=0){
+            if(arr[i][j]=='Q') return false;
+            i--;j--;
+        }
+        return true;
+    }
+    void func(int n,vector<string>& arr,int row,vector<vector<string>> &ans){
+        if(row>=n){
+            ans.push_back(arr);
+            return;
+        }
+        for(int i=0;i<n;i++){
+            if(isvalid(row,arr,n,i)){
+                arr[row][i]='Q';
+                func(n,arr,row+1,ans);
+                arr[row][i]='.';
+            }
+        }
+        return;
+        
+    }
+    vector<vector<string>> solveNQueens(int n) {
+        vector<vector<string>> ans;
+        vector<string> arr(n,string(n,'.'));
+        func(n,arr,0,ans);
+        return ans;
+    }
+};
+
+Complexity--
+Time: O(n!)
+Space: O(n)
